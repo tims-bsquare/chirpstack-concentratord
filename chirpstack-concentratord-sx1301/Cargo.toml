@@ -26,3 +26,24 @@
   handlebars = { workspace = true }
   getrandom = { workspace = true }
   anyhow = { workspace = true }
+
+# Debian packaging.
+[package.metadata.deb]
+assets = [
+    [
+        "target/release/chirpstack-concentratord-sx1302",
+        "usr/bin/chirpstack-concentratord",
+        "755",
+    ],
+    [
+        "../packaging/debian/chirpstack-concentratord.toml",
+        "etc/chirpstack-concentratord/",
+        "640",
+    ],
+]
+conf-files = [
+    "/etc/chirpstack-concentratord/chirpstack-concentratord.toml",
+]
+suggests = "mosquitto"
+maintainer-scripts = "../packaging/debian/"
+systemd-units = { enable = true }
